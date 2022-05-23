@@ -8,6 +8,7 @@ import VerticalLayout from '../../src/@core/layouts/VerticalLayout'
 
 // ** Navigation Imports
 import VerticalNavItems from '../../src/navigation/vertical'
+import VerticalNoToken from '../../src/navigation/noToken'
 
 // ** Component Import
 import UpgradeToProButton from './components/UpgradeToProButton'

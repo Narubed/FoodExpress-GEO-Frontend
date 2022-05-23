@@ -37,6 +37,7 @@ const navigation = () => {
       path: '/pages/register',
       openInNewTab: true
     },
+
     {
       title: 'Error',
       icon: AlertCircleOutline,
