@@ -16,7 +16,7 @@ import themeConfig from 'src/configs/themeConfig'
 import AppBar from './components/vertical/appBar'
 import Navigation from './components/vertical/navigation'
 import Footer from './components/shared-components/footer'
-import ScrollToTop from 'src/@core/components/scroll-to-top'
+import ScrollToTop from '../../../src/@core/components/scroll-to-top'
 
 // ** Styled Component
 import DatePickerWrapper from '../../../src/@core/styles/libs/react-datepicker'
