@@ -1,4 +1,5 @@
 // ** MUI Imports
+import dynamic from 'next/dynamic'
 import Grid from '@mui/material/Grid'
 import Link from '@mui/material/Link'
 import Card from '@mui/material/Card'
@@ -6,12 +7,12 @@ import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 
 // ** Demo Components Imports
-import TableBasic from '../../../src/views/tables/TableBasic'
-import TableDense from '../../../src/views/tables/TableDense'
-import TableSpanning from '../../../src/views/tables/TableSpanning'
-import TableCustomized from '../../../src/views/tables/TableCustomized'
-import TableCollapsible from '../../../src/views/tables/TableCollapsible'
-import TableStickyHeader from '../../../src/views/tables/TableStickyHeader'
+const TableBasic = dynamic(() => import('../../../src/views/tables/TableBasic'), { loading: () => <p>...</p> })
+const TableDense = dynamic(() => import('../../../src/views/tables/TableDense'), { loading: () => <p>...</p> })
+const TableSpanning = dynamic(() => import('../../../src/views/tables/TableSpanning'), { loading: () => <p>...</p> })
+const TableCustomized = dynamic(() => import('../../../src/views/tables/TableCustomized'), { loading: () => <p>...</p> })
+const TableCollapsible = dynamic(() => import('../../../src/views/tables/TableCollapsible'), { loading: () => <p>...</p> })
+const TableStickyHeader = dynamic(() => import('../../../src/views/tables/TableStickyHeader'), { loading: () => <p>...</p> })
 
 const MUITable = () => {
   return (

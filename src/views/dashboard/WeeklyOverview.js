@@ -1,4 +1,5 @@
 // ** MUI Imports
+import dynamic from 'next/dynamic'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Button from '@mui/material/Button'
@@ -12,7 +13,8 @@ import CardContent from '@mui/material/CardContent'
 import DotsVertical from 'mdi-material-ui/DotsVertical'
 
 // ** Custom Components Imports
-import ReactApexcharts from '../../../src/@core/components/react-apexcharts'
+// import ReactApexcharts from '../../../src/@core/components/react-apexcharts'
+const ReactApexcharts = dynamic(() => import('../../../src/@core/components/react-apexcharts'),{ loading: () => <p>...</p> })
 
 const WeeklyOverview = () => {
   // ** Hook

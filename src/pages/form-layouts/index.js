@@ -1,14 +1,16 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
+import dynamic from 'next/dynamic'
 
 // ** Styled Component
-import DatePickerWrapper from '../../../src/@core/styles/libs/react-datepicker'
+// import DatePickerWrapper from '../../../src/@core/styles/libs/react-datepicker'
+const DatePickerWrapper = dynamic(() => import('../../../src/@core/styles/libs/react-datepicker'), { loading: () => <p>...</p> })
 
 // ** Demo Components Imports
-import FormLayoutsBasic from '../../../src/views/form-layouts/FormLayoutsBasic'
-import FormLayoutsIcons from '../../../src/views/form-layouts/FormLayoutsIcons'
-import FormLayoutsSeparator from '../../../src/views/form-layouts/FormLayoutsSeparator'
-import FormLayoutsAlignment from '../../../src/views/form-layouts/FormLayoutsAlignment'
+const FormLayoutsBasic = dynamic(() => import('../../../src/views/form-layouts/FormLayoutsBasic'), { loading: () => <p>...</p> })
+const FormLayoutsIcons = dynamic(() => import('../../../src/views/form-layouts/FormLayoutsIcons'), { loading: () => <p>...</p> })
+const FormLayoutsSeparator = dynamic(() => import('../../../src/views/form-layouts/FormLayoutsSeparator'), { loading: () => <p>...</p> })
+const FormLayoutsAlignment = dynamic(() => import('../../../src/views/form-layouts/FormLayoutsAlignment'), { loading: () => <p>...</p> })
 
 // ** Third Party Styles Imports
 import 'react-datepicker/dist/react-datepicker.css'

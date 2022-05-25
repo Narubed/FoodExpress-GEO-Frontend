@@ -1,5 +1,6 @@
 // ** React Imports
 import { useState } from 'react'
+import dynamic from 'next/dynamic'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
@@ -16,9 +17,12 @@ import LockOpenOutline from 'mdi-material-ui/LockOpenOutline'
 import InformationOutline from 'mdi-material-ui/InformationOutline'
 
 // ** Demo Tabs Imports
-import TabInfo from '../../../src/views/account-settings/TabInfo'
-import TabAccount from '../../../src/views/account-settings/TabAccount'
-import TabSecurity from '../../../src/views/account-settings/TabSecurity'
+// import TabInfo from '../../../src/views/account-settings/TabInfo'
+// import TabAccount from '../../../src/views/account-settings/TabAccount'
+// import TabSecurity from '../../../src/views/account-settings/TabSecurity'
+const TabInfo = dynamic(() => import('../../../src/views/account-settings/TabInfo'), { loading: () => <p>...</p> })
+const TabAccount = dynamic(() => import('../../../src/views/account-settings/TabAccount'), { loading: () => <p>...</p> })
+const TabSecurity = dynamic(() => import('../../../src/views/account-settings/TabSecurity'), { loading: () => <p>...</p> })
 
 // ** Third Party Styles Imports
 import 'react-datepicker/dist/react-datepicker.css'

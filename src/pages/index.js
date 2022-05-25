@@ -1,5 +1,6 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
+import dynamic from 'next/dynamic'
 
 // ** Icons Imports
 import Poll from 'mdi-material-ui/Poll'
@@ -8,19 +9,31 @@ import HelpCircleOutline from 'mdi-material-ui/HelpCircleOutline'
 import BriefcaseVariantOutline from 'mdi-material-ui/BriefcaseVariantOutline'
 
 // ** Custom Components Imports
-import CardStatisticsVerticalComponent from '../../src/@core/components/card-statistics/card-stats-vertical'
+// import CardStatisticsVerticalComponent from '../../src/@core/components/card-statistics/card-stats-vertical'
 
 // ** Styled Component Import
-import ApexChartWrapper from '../../src/@core/styles/libs/react-apexcharts'
+// import ApexChartWrapper from '../../src/@core/styles/libs/react-apexcharts'
+
+const CardStatisticsVerticalComponent = dynamic(() => import('../../src/@core/components/card-statistics/card-stats-vertical'),{ loading: () => <p>...</p> })
+const ApexChartWrapper = dynamic(() => import('../../src/@core/styles/libs/react-apexcharts'),{ loading: () => <p>...</p> })
 
 // ** Demo Components Imports
-import Table from '../../src/views/dashboard/Table'
-import Trophy from '../../src/views/dashboard/Trophy'
-import TotalEarning from '../../src/views/dashboard/TotalEarning'
-import StatisticsCard from '../../src/views/dashboard/StatisticsCard'
-import WeeklyOverview from '../../src/views/dashboard/WeeklyOverview'
-import DepositWithdraw from '../../src/views/dashboard/DepositWithdraw'
-import SalesByCountries from '../../src/views/dashboard/SalesByCountries'
+// import Table from '../../src/views/dashboard/Table'
+// import Trophy from '../../src/views/dashboard/Trophy'
+// import TotalEarning from '../../src/views/dashboard/TotalEarning'
+// import StatisticsCard from '../../src/views/dashboard/StatisticsCard'
+// import WeeklyOverview from '../../src/views/dashboard/WeeklyOverview'
+// import DepositWithdraw from '../../src/views/dashboard/DepositWithdraw'
+// import SalesByCountries from '../../src/views/dashboard/SalesByCountries'
+
+const Table = dynamic(() => import('../../src/views/dashboard/Table'),{ loading: () => <p>...</p> })
+const Trophy = dynamic(() => import('../../src/views/dashboard/Trophy'),{ loading: () => <p>...</p> })
+const TotalEarning = dynamic(() => import('../../src/views/dashboard/TotalEarning'),{ loading: () => <p>...</p> })
+const StatisticsCard = dynamic(() => import('../../src/views/dashboard/StatisticsCard'),{ loading: () => <p>...</p> })
+const WeeklyOverview = dynamic(() => import('../../src/views/dashboard/WeeklyOverview'),{ loading: () => <p>...</p> })
+const DepositWithdraw = dynamic(() => import('../../src/views/dashboard/DepositWithdraw'),{ loading: () => <p>...</p> })
+const SalesByCountries = dynamic(() => import('../../src/views/dashboard/SalesByCountries'),{ loading: () => <p>...</p> })
+
 
 const Dashboard = () => {
   return (

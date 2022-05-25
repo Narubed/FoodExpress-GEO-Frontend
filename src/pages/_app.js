@@ -1,7 +1,7 @@
 // ** Next Imports
 import Head from 'next/head'
 import { Router, useRouter } from 'next/router'
-
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 
@@ -12,11 +12,14 @@ import NProgress from 'nprogress'
 import { CacheProvider } from '@emotion/react'
 
 // ** Config Imports
-import themeConfig from '../../src/configs/themeConfig'
+// import themeConfig from '../../src/configs/themeConfig'
+const themeConfig = dynamic(() => import('../../src/configs/themeConfig'), { loading: () => <p>...</p> })
 
 // ** Component Imports
-import UserLayout from '../../src/layouts/UserLayout'
-import ThemeComponent from '../../src/@core/theme/ThemeComponent'
+// import UserLayout from '../../src/layouts/UserLayout'
+// import ThemeComponent from '../../src/@core/theme/ThemeComponent'
+const UserLayout = dynamic(() => import('../../src/layouts/UserLayout'), { loading: () => <p>...</p> })
+const ThemeComponent = dynamic(() => import('../../src/@core/theme/ThemeComponent'), { loading: () => <p>...</p> })
 
 // ** Contexts
 import { SettingsConsumer, SettingsProvider } from '../../src/@core/context/settingsContext'
@@ -75,7 +78,7 @@ const App = props => {
   function authCheck(url) {
     // redirect to login page if accessing a private page and not logged in
     const publicPaths = ['/pages/login', '/pages/404']
-    const user = localStorage.getItem('user')
+    const user = sessionStorage.getItem('user')
     if (!publicPaths.includes(publicPaths) && !user) {
       setAuthorized(false)
       router.push({

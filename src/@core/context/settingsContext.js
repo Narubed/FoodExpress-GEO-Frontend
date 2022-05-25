@@ -1,8 +1,10 @@
 // ** React Imports
 import { createContext, useState } from 'react'
+import dynamic from 'next/dynamic'
 
 // ** ThemeConfig Import
-import themeConfig from '../../../src/configs/themeConfig'
+// import themeConfig from '../../../src/configs/themeConfig'
+const themeConfig = dynamic(() => import('../../../src/configs/themeConfig'), { loading: () => <p>...</p> })
 
 const initialSettings = {
   themeColor: 'primary',

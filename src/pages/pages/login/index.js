@@ -1,5 +1,6 @@
 // ** React Imports
 import { useState } from 'react'
+import dynamic from 'next/dynamic'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -23,21 +24,24 @@ import InputAdornment from '@mui/material/InputAdornment'
 import MuiFormControlLabel from '@mui/material/FormControlLabel'
 
 // ** Icons Imports
-import Google from 'mdi-material-ui/Google'
-import Github from 'mdi-material-ui/Github'
-import Twitter from 'mdi-material-ui/Twitter'
-import Facebook from 'mdi-material-ui/Facebook'
-import EyeOutline from 'mdi-material-ui/EyeOutline'
-import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
+const EyeOffOutline = dynamic(() => import('mdi-material-ui/EyeOffOutline'), { loading: () => <p>...</p> })
+const EyeOutline = dynamic(() => import('mdi-material-ui/EyeOutline'), { loading: () => <p>...</p> })
+const Facebook = dynamic(() => import('mdi-material-ui/Facebook'), { loading: () => <p>...</p> })
+const Twitter = dynamic(() => import('mdi-material-ui/Twitter'), { loading: () => <p>...</p> })
+const Github = dynamic(() => import('mdi-material-ui/Github'), { loading: () => <p>...</p> })
+const Google = dynamic(() => import('mdi-material-ui/Google'), { loading: () => <p>...</p> })
 
 // ** Configs
-import themeConfig from '../../../../src/configs/themeConfig'
+// import themeConfig from '../../../../src/configs/themeConfig'
+const themeConfig = dynamic(() => import('../../../../src/configs/themeConfig'), { loading: () => <p>...</p> })
 
 // ** Layout Import
-import BlankLayout from '../../../../src/@core/layouts/BlankLayout'
+// import BlankLayout from '../../../../src/@core/layouts/BlankLayout'
+const BlankLayout = dynamic(() => import('../../../../src/@core/layouts/BlankLayout'), { loading: () => <p>...</p> })
 
 // ** Demo Imports
-import FooterIllustrationsV1 from '../../../../src/views/pages/auth/FooterIllustration'
+// import FooterIllustrationsV1 from '../../../../src/views/pages/auth/FooterIllustration'
+const FooterIllustrationsV1 = dynamic(() => import('../../../../src/views/pages/auth/FooterIllustration'), { loading: () => <p>...</p> })
 
 // ** Styled Components
 const Card = styled(MuiCard)(({ theme }) => ({
