@@ -12,6 +12,8 @@ import VerticalNoToken from '../../src/navigation/noToken'
 
 // ** Component Import
 import UpgradeToProButton from './components/UpgradeToProButton'
+import ShoppingCart from './components/ShoppingCart'
+
 import VerticalAppBarContent from './components/vertical/AppBarContent'
 
 // ** Hook Import
@@ -65,6 +67,7 @@ const UserLayout = ({ children }) => {
     >
       {children}
       <UpgradeToProButton />
+      <ShoppingCart />
     </VerticalLayout>
   )
 }

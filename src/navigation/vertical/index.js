@@ -18,6 +18,11 @@ const navigation = () => {
       path: '/'
     },
     {
+      title: 'สินค้าทั้งหมด',
+      icon: AccountCogOutline,
+      path: '/product-app'
+    },
+    {
       title: 'Account Settings',
       icon: AccountCogOutline,
       path: '/account-settings'

@@ -1,5 +1,5 @@
 // ** React Import
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Icon } from '@iconify/react'
 
 // ** MUI Imports
@@ -9,15 +9,26 @@ import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
+import Badge from '@mui/material/Badge'
 
 // ** Third Party Imports
 import { usePopper } from 'react-popper'
 
 const BuyNowButton = () => {
   // ** States
+
+  const [ShoppingCount, setShoppingCount] = useState(0)
   const [open, setOpen] = useState(false)
   const [popperElement, setPopperElement] = useState(null)
   const [referenceElement, setReferenceElement] = useState(null)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
+    const localStroge = localStorage.getItem('shopping')
+    const valueShopping = JSON.parse(localStroge)
+    if (valueShopping !== null) {
+      setShoppingCount(valueShopping.length)
+    }
+  }, [])
 
   const { styles, attributes, update } = usePopper(referenceElement, popperElement, {
     placement: 'top-end'
@@ -38,7 +49,11 @@ const BuyNowButton = () => {
       sx={{ right: theme => theme.spacing(20), bottom: theme => theme.spacing(180), zIndex: 11, position: 'fixed' }}
     >
       <Button
-        startIcon={<Icon icon='noto:shopping-cart' />}
+        startIcon={
+          <Badge badgeContent={ShoppingCount}>
+            <Icon icon='noto:shopping-cart' />
+          </Badge>
+        }
         component='a'
         target='_blank'
         variant='contained'
