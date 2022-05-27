@@ -19,7 +19,7 @@ const ProductApp = () => {
   useEffect(async () => {
     // console.log(process.env.NEXT_PUBLIC_WEB_FOODEXPRESS)
 
-    const getProducts = await axios.get(`${process.env.NEXT_PUBLIC_WEB_FOODEXPRESS}/products`)
+    const getProducts = await axios.get(`${process.env.NEXT_PUBLIC_WEB_FOODEXPRESS}/getJoinProductType`)
 
     const filterStatusProduct = getProducts.data.data.filter(f => f.productStetus === 'สินค้าพร้อมจำหน่าย')
     const reverseProduct = filterStatusProduct.reverse()
@@ -31,6 +31,17 @@ const ProductApp = () => {
       <Grid container spacing={6}>
         <Grid item xs={12} sx={{ paddingBottom: 4 }}>
           <Typography variant='h5'>สินค้าทั้งหมด</Typography>
+          <Stack
+            direction='row'
+            flexWrap='wrap-reverse'
+            alignItems='center'
+            justifyContent='flex-end'
+            sx={{ mb: -2, mt: 4 }}
+          >
+            {/* <Stack direction='row' spacing={1} flexShrink={0} sx={{ my: 1 }}>
+              <Button variant='outlined'>ค้นหาตามประเภทสินค้า</Button>
+            </Stack> */}
+          </Stack>
         </Grid>
         {Products.map(value => (
           <Grid item xs={12} sm={6} md={3} key={value.productid}>

@@ -1,5 +1,8 @@
 // ** MUI Imports
 import React from 'react'
+import { addItem } from '../../store/actions'
+import { useDispatch } from 'react-redux'
+
 import Card from '@mui/material/Card'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
@@ -25,8 +28,8 @@ const ProductImgStyle = styled('img')({
   height: '100%',
   objectFit: 'cover',
   '&:hover': {
-    width: '103%',
-    height: '103%'
+    width: '101%',
+    height: '101%'
   },
   '&:last-child': {
     borderRight: 'solid 1px #cccccc'
@@ -52,31 +55,30 @@ const ColorButton = styled(LoadingButton)(({ theme }) => ({
 const Transition = React.forwardRef((props, ref) => <Slide direction='up' ref={ref} {...props} />)
 
 const CardImgTop = ({ values }) => {
+  const dispatch = useDispatch()
   const [showModal, setShowModal] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
   const [defaultValues, setDefaultValues] = React.useState()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(async () => {
-    console.log(values)
     setDefaultValues(values)
   })
 
   const AddProduct = async () => {
-    console.log(values)
     const localStroge = localStorage.getItem('shopping')
     const valueShopping = []
     if (localStroge === null) {
-      localStorage.setItem('shopping', JSON.stringify([values]))
+      valueShopping.push({ ...values, amount: 1 })
     } else {
       const data = JSON.parse(localStroge)
       valueShopping = data
       console.log(data)
       const findIndexShopping = data.findIndex(value => value.productid === values.productid)
       if (findIndexShopping === -1) {
-        valueShopping.push(values)
-        localStorage.setItem('shopping', JSON.stringify(valueShopping))
+        valueShopping.push({ ...values, amount: 1 })
       }
     }
+    dispatch(addItem(valueShopping))
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
@@ -88,10 +90,12 @@ const CardImgTop = ({ values }) => {
       <Card>
         <CardMedia sx={{ pt: '100%', position: 'relative' }}>
           {!defaultValues || defaultValues.length === 0 ? null : (
-            <ProductImgStyle
-              src={`${process.env.NEXT_PUBLIC_DRIVE_SELECT_IMAGE}${defaultValues.productImg}`}
-              onClick={() => setShowModal(true)}
-            />
+            <a href='#'>
+              <ProductImgStyle
+                src={`${process.env.NEXT_PUBLIC_DRIVE_SELECT_IMAGE}${defaultValues.productImg}`}
+                onClick={() => setShowModal(true)}
+              />
+            </a>
           )}
         </CardMedia>
         <CardContent>
@@ -137,7 +141,9 @@ const CardImgTop = ({ values }) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setShowModal(false)}>Close</Button>
+          <Button variant='contained' onClick={() => setShowModal(false)}>
+            ออก
+          </Button>
         </DialogActions>
       </Dialog>
     </>

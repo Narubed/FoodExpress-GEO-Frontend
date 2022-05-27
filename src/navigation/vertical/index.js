@@ -1,4 +1,6 @@
 // ** Icon imports
+import { Icon } from '@iconify/react';
+
 import Login from 'mdi-material-ui/Login'
 import Table from 'mdi-material-ui/Table'
 import CubeOutline from 'mdi-material-ui/CubeOutline'
@@ -9,6 +11,8 @@ import CreditCardOutline from 'mdi-material-ui/CreditCardOutline'
 import AccountPlusOutline from 'mdi-material-ui/AccountPlusOutline'
 import AlertCircleOutline from 'mdi-material-ui/AlertCircleOutline'
 import GoogleCirclesExtended from 'mdi-material-ui/GoogleCirclesExtended'
+import ShoppingOutline from 'mdi-material-ui/ShoppingOutline'
+ 
 
 const navigation = () => {
   return [
@@ -19,7 +23,7 @@ const navigation = () => {
     },
     {
       title: 'สินค้าทั้งหมด',
-      icon: AccountCogOutline,
+      icon: ShoppingOutline,
       path: '/product-app'
     },
     {

@@ -4,6 +4,8 @@ import { Router, useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { Provider } from 'react-redux'
+import { wrapper, store } from '../store/store'
 
 // ** Loader Import
 import NProgress from 'nprogress'
@@ -56,7 +58,6 @@ const App = props => {
   useEffect(() => {
     // on initial load - run auth check
     authCheck(router.asPath)
-    console.log(router.asPath)
 
     // on route change start - hide page content by setting authorized to false
     const hideContent = () => setAuthorized(false)
@@ -64,7 +65,6 @@ const App = props => {
 
     // on route change complete - run auth check
     // router.events.on('routeChangeComplete', authCheck)
-
     // unsubscribe from events in useEffect return function
     return () => {
       router.events.off('routeChangeStart', hideContent)
@@ -78,7 +78,7 @@ const App = props => {
   function authCheck(url) {
     // redirect to login page if accessing a private page and not logged in
     const publicPaths = ['/pages/login', '/pages/404']
-    const user = sessionStorage.getItem('user')
+    const user = sessionStorage.getItem('token')
     if (!publicPaths.includes(publicPaths) && !user) {
       setAuthorized(false)
       router.push({
@@ -96,10 +96,11 @@ const App = props => {
   // Variables
   const getLayout = Component.getLayout ?? (page => <UserLayout>{page}</UserLayout>)
 
+
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>{`${themeConfig.templateName} - Material Design React Admin Template`}</title>
+        <title>{`Partner-Foodexpress`}</title>
         <meta
           name='description'
           content={`${themeConfig.templateName} – Material Design React Admin Dashboard Template – is the most developer friendly & highly customizable Admin Dashboard Template based on MUI v5.`}
@@ -111,7 +112,15 @@ const App = props => {
       <SettingsProvider>
         <SettingsConsumer>
           {({ settings }) => {
-            return <ThemeComponent settings={settings}>{getLayout(<Component {...pageProps} />)}</ThemeComponent>
+            return (
+              <ThemeComponent settings={settings}>
+                {getLayout(
+                  <Provider store={store}>
+                    <Component {...pageProps} />
+                  </Provider>
+                )}
+              </ThemeComponent>
+            )
           }}
         </SettingsConsumer>
       </SettingsProvider>
@@ -119,4 +128,4 @@ const App = props => {
   )
 }
 
-export default App
+export default wrapper.withRedux(App)

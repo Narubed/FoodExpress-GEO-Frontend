@@ -1,6 +1,8 @@
 // ** React Import
 import { useState, useEffect } from 'react'
 import { Icon } from '@iconify/react'
+import { useSelector, useDispatch } from 'react-redux'
+import Link from 'next/link'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
@@ -17,18 +19,25 @@ import { usePopper } from 'react-popper'
 const BuyNowButton = () => {
   // ** States
 
-  const [ShoppingCount, setShoppingCount] = useState(0)
+  const [ShoppingCount, setShoppingCount] = useState([])
   const [open, setOpen] = useState(false)
   const [popperElement, setPopperElement] = useState(null)
   const [referenceElement, setReferenceElement] = useState(null)
+
+  const dispatch = useDispatch()
+
+  const sampleListData = useSelector(state => state.list)
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     const localStroge = localStorage.getItem('shopping')
     const valueShopping = JSON.parse(localStroge)
-    if (valueShopping !== null) {
-      setShoppingCount(valueShopping.length)
+    if (valueShopping) {
+      setShoppingCount(valueShopping)
     }
-  }, [])
+
+    // eslint-disable--line react-hooks/exhaustive-deps
+  }, [dispatch])
 
   const { styles, attributes, update } = usePopper(referenceElement, popperElement, {
     placement: 'top-end'
@@ -48,36 +57,39 @@ const BuyNowButton = () => {
       className='upgrade-to-pro-button mui-fixed'
       sx={{ right: theme => theme.spacing(20), bottom: theme => theme.spacing(180), zIndex: 11, position: 'fixed' }}
     >
-      <Button
-        startIcon={
-          <Badge badgeContent={ShoppingCount}>
-            <Icon icon='noto:shopping-cart' />
-          </Badge>
-        }
-        component='a'
-        target='_blank'
-        variant='contained'
-        onMouseEnter={handleOpen}
-        onMouseLeave={handleClose}
-        ref={e => setReferenceElement(e)}
-        href='https://themeselection.com/products/materio-mui-react-nextjs-admin-template/'
-        sx={{
-          backgroundColor: '#8A2BE2',
-          boxShadow: '0 1px 20px 1px #FF00FF',
-          '&:hover': {
-            boxShadow: 'none',
-            backgroundColor: '#9400D3'
-
-            // backgroundColor: '#ff3e1d',
-            // boxShadow: '0 1px 20px 1px #ff3e1d',
-            // '&:hover': {
-            //   boxShadow: 'none',
-            //   backgroundColor: '#e6381a'
+      <Link href='/product-app/product-confirm' passHref>
+        <Button
+          startIcon={
+            <Badge
+              badgeContent={sampleListData.length !== undefined ? sampleListData.length : ShoppingCount.length}
+              color='secondary'
+            >
+              <Icon icon='noto:shopping-cart' />
+            </Badge>
           }
-        }}
-      >
-        Shop
-      </Button>
+          variant='contained'
+          onMouseEnter={handleOpen}
+          onMouseLeave={handleClose}
+          ref={e => setReferenceElement(e)}
+          href='https://themeselection.com/products/materio-mui-react-nextjs-admin-template/'
+          sx={{
+            backgroundColor: '#8A2BE2',
+            boxShadow: '0 1px 20px 1px #FF00FF',
+            '&:hover': {
+              boxShadow: 'none',
+              backgroundColor: '#9400D3'
+
+              // backgroundColor: '#ff3e1d',
+              // boxShadow: '0 1px 20px 1px #ff3e1d',
+              // '&:hover': {
+              //   boxShadow: 'none',
+              //   backgroundColor: '#e6381a'
+            }
+          }}
+        >
+          Shop
+        </Button>
+      </Link>
       <Fade in={open} timeout={700}>
         <Box
           style={styles.popper}
@@ -88,41 +100,20 @@ const BuyNowButton = () => {
           sx={{ pb: 4, minWidth: theme => (theme.breakpoints.down('sm') ? 400 : 300) }}
         >
           <Paper elevation={9} sx={{ borderRadius: 1, overflow: 'hidden' }}>
-            <a
-              target='_blank'
-              rel='noreferrer'
-              href='https://themeselection.com/products/materio-mui-react-nextjs-admin-template/'
-            >
+            <Link href='/product-app/product-confirm' passHref>
               <img width='100%' alt='materio-pro-banner' src='/images/misc/materio-pro-banner.png' />
-            </a>
+            </Link>
             <CardContent>
               <Typography sx={{ mb: 4 }} variant='h6'>
-                Materio - React Admin Template
+                เช็ครายการสินค้าและสั่งซื้อ
               </Typography>
               <Typography sx={{ mb: 4 }} variant='body2'>
-                Materio Admin is the most developer friendly & highly customizable Admin Dashboard Template based on MUI
-                and NextJS.
+                สามารถคลิ๊กเพิ่อตรวจสอบ และจัดการออเดอร์ของท่านได้
               </Typography>
-              <Typography sx={{ mb: 4 }} variant='body2'>
-                Click on below buttons to explore PRO version.
-              </Typography>
-              <Button
-                component='a'
-                sx={{ mr: 4 }}
-                target='_blank'
-                variant='contained'
-                href='https://demos.themeselection.com/materio-mui-react-nextjs-admin-template/landing/'
-              >
-                Demo
-              </Button>
-              <Button
-                component='a'
-                target='_blank'
-                variant='outlined'
-                href='https://themeselection.com/products/materio-mui-react-nextjs-admin-template/'
-              >
-                Download
-              </Button>
+
+              <Link href='/product-app/product-confirm' passHref>
+                <Button variant='contained'>หน้าจัดการออเดอร์</Button>
+              </Link>
             </CardContent>
           </Paper>
         </Box>
