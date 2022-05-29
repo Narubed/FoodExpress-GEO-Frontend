@@ -96,7 +96,6 @@ const App = props => {
   // Variables
   const getLayout = Component.getLayout ?? (page => <UserLayout>{page}</UserLayout>)
 
-
   return (
     <CacheProvider value={emotionCache}>
       <Head>

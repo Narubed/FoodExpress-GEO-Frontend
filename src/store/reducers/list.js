@@ -13,6 +13,7 @@ const listReducer = (state = {}, action) => {
       break
     case 'LISTITEM_DELETE':
       delete newState[action.payload]
+      localStorage.removeItem('shopping')
       break
     default:
       break

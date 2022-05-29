@@ -1,5 +1,5 @@
 // ** Icon imports
-import { Icon } from '@iconify/react';
+import { Icon } from '@iconify/react'
 
 import Login from 'mdi-material-ui/Login'
 import Table from 'mdi-material-ui/Table'
@@ -12,12 +12,12 @@ import AccountPlusOutline from 'mdi-material-ui/AccountPlusOutline'
 import AlertCircleOutline from 'mdi-material-ui/AlertCircleOutline'
 import GoogleCirclesExtended from 'mdi-material-ui/GoogleCirclesExtended'
 import ShoppingOutline from 'mdi-material-ui/ShoppingOutline'
- 
+import PlaylistEdit from 'mdi-material-ui/PlaylistEdit'
 
 const navigation = () => {
   return [
     {
-      title: 'Dashboard',
+      title: 'หน้าหลัก',
       icon: HomeOutline,
       path: '/'
     },
@@ -25,6 +25,19 @@ const navigation = () => {
       title: 'สินค้าทั้งหมด',
       icon: ShoppingOutline,
       path: '/product-app'
+    },
+    {
+      title: 'เช็คออเดอร์',
+      icon: PlaylistEdit,
+      path: '/check-orders'
+    },
+    {
+      sectionTitle: 'สำหรับศูนย์ที่อยู่ใต้สังกัต'
+    },
+    {
+      title: 'ออเดอร์ศูนย์',
+      icon: PlaylistEdit,
+      path: '/under-check-orders'
     },
     {
       title: 'Account Settings',

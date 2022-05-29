@@ -44,13 +44,20 @@ const CardProductConfirm = ({ value, index }) => {
   const dispatch = useDispatch()
   const router = useRouter()
 
+  const [priceProduct, setPriceProduct] = useState(value.amount * value.productPrice)
+
   const valueOnChange = e => {
+    let math = e.match(/^\d+$/)
+    if (math === null) {
+      math = 0
+    }
+    setPriceProduct(math * value.productPrice)
     const getLocalstorage = JSON.parse(localStorage.getItem('shopping'))
     const newData = []
     getLocalstorage.forEach(element => {
       const indexID = element.productid === value.productid
       if (indexID) {
-        newData.push({ ...element, amount: parseInt(e, 10) })
+        newData.push({ ...element, amount: parseInt(math, 10) })
       } else {
         newData.push(element)
       }
@@ -94,7 +101,7 @@ const CardProductConfirm = ({ value, index }) => {
                       sx={{ ml: 'auto' }}
                       onClick={() => deleteCardProduct()}
                     >
-                      <Icon icon='bi:x-circle-fill' color='red' width='22' height='22' />
+                      <Icon icon='typcn:delete-outline' color='red' width='28' height='28' />
                     </IconButton>
                   </Tooltip>
                 </Grid>
@@ -102,7 +109,7 @@ const CardProductConfirm = ({ value, index }) => {
               <h4>{value.productName}</h4>
               <Grid container spacing={5}>
                 <Grid item xs={6}>
-                  <TextField fullWidth label={value.productPrice} disabled />
+                  <TextField fullWidth label={value.productPrice.toLocaleString()} disabled />
                 </Grid>
                 <Grid item xs={1}>
                   <h4>/</h4>
@@ -112,22 +119,24 @@ const CardProductConfirm = ({ value, index }) => {
                 </Grid>
               </Grid>
               <br />
-              <br />
-              <TextField
-                InputProps={{ inputProps: { min: 0, max: 10 } }}
-                type='number'
-                fullWidth
-                label='จำนวนสินค้า'
-                placeholder='จำนวนสินค้า'
-                defaultValue={value.amount}
-                onChange={e => valueOnChange(e.target.value)}
-              />
-              <br />
-              <br />
 
-              {/* <Button type='submit' variant='contained' size='large' sx={{ mr: 'auto' }}>
-                ยืนยันการสั่งซื้อสินค้า
-              </Button> */}
+              <Grid container spacing={2}>
+                <Grid item xs={6}>
+                  <TextField
+                    InputProps={{ inputProps: { min: 0 } }}
+                    type='number'
+                    fullWidth
+                    label='จำนวนสินค้า'
+                    placeholder='จำนวนสินค้า'
+                    defaultValue={value.amount}
+                    onChange={e => valueOnChange(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField fullWidth label={priceProduct.toLocaleString() + ' บาท'} disabled />
+                </Grid>
+              </Grid>
+              <br />
             </Grid>
           </Grid>
         </form>

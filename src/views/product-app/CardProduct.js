@@ -72,7 +72,6 @@ const CardImgTop = ({ values }) => {
     } else {
       const data = JSON.parse(localStroge)
       valueShopping = data
-      console.log(data)
       const findIndexShopping = data.findIndex(value => value.productid === values.productid)
       if (findIndexShopping === -1) {
         valueShopping.push({ ...values, amount: 1 })

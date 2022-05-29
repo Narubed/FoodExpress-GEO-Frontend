@@ -78,12 +78,6 @@ const BuyNowButton = () => {
             '&:hover': {
               boxShadow: 'none',
               backgroundColor: '#9400D3'
-
-              // backgroundColor: '#ff3e1d',
-              // boxShadow: '0 1px 20px 1px #ff3e1d',
-              // '&:hover': {
-              //   boxShadow: 'none',
-              //   backgroundColor: '#e6381a'
             }
           }}
         >
@@ -101,7 +95,7 @@ const BuyNowButton = () => {
         >
           <Paper elevation={9} sx={{ borderRadius: 1, overflow: 'hidden' }}>
             <Link href='/product-app/product-confirm' passHref>
-              <img width='100%' alt='materio-pro-banner' src='/images/misc/materio-pro-banner.png' />
+              <img width='100%' alt='materio-pro-banner' src='/images/logoNBA/noImage/foodexpress.png' />
             </Link>
             <CardContent>
               <Typography sx={{ mb: 4 }} variant='h6'>
