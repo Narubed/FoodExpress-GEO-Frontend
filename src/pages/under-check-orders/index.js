@@ -33,16 +33,32 @@ import {
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import MobileDateRangePicker from '@mui/lab/MobileDateRangePicker'
+import dynamic from 'next/dynamic'
 
-import {
-  UnderCheckOrderListHead,
-  UnderCheckOrderListToolbar,
-  UnderCheckOrderMoreMenu
-} from '../../views/under-check-orders/companents'
+// import {
+//   UnderCheckOrderListHead,
+//   UnderCheckOrderListToolbar,
+//   UnderCheckOrderMoreMenu
+// } from '../../views/under-check-orders/companents'
 
-import Scrollbar from '../../utils/Scrollbar'
-import Label from 'src/utils/Label'
-import SearchNotFound from '../../utils/SearchNotFound'
+const UnderCheckOrderListHead = dynamic(
+  () => import('../../views/under-check-orders/companents/UnderCheckOrderListHead'),
+  { loading: () => <p>...</p> }
+)
+
+const UnderCheckOrderListToolbar = dynamic(
+  () => import('../../views/under-check-orders/companents/UnderCheckOrderListToolbar'),
+  { loading: () => <p>...</p> }
+)
+
+const UnderCheckOrderMoreMenu = dynamic(
+  () => import('../../views/under-check-orders/companents/UnderCheckOrderMoreMenu'),
+  { loading: () => <p>...</p> }
+)
+
+const Scrollbar = dynamic(() => import('../../utils/Scrollbar'), { loading: () => <p>...</p> })
+const Label = dynamic(() => import('src/utils/Label'), { loading: () => <p>...</p> })
+const SearchNotFound = dynamic(() => import('../../utils/SearchNotFound'), { loading: () => <p>...</p> })
 
 // ----------------------------------------------------------------------
 const TABLE_HEAD = [
