@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import dayjs from 'dayjs'
 import 'dayjs/locale/th'
-import dynamic from 'next/dynamic'
 
 // material-tailwind
 

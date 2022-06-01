@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import Swal from 'sweetalert2'
-import { deleteItem } from '../../../store/actions'
+
+import { openLoading, turnOffLoading, deleteItem } from '../../../store/actions'
 
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
@@ -26,7 +27,6 @@ const CardProductConfirm = dynamic(
     loading: () => <p>...</p>
   }
 )
-
 
 const ImgStyled = styled('img')(({ theme }) => ({
   width: '25%',
@@ -83,6 +83,8 @@ const Icons = () => {
         cancelButtonText: 'ยกเลิก'
       }).then(async result => {
         if (result.isConfirmed) {
+          dispatch(openLoading())
+
           const dataReduce = datas.reduce(
             (previousValue, currentValue) => previousValue + currentValue.amount * currentValue.productPrice,
             0
@@ -111,12 +113,11 @@ const Icons = () => {
               odd_product_currency: element.currency,
               odd_product_unitkg: element.unitkg
             }
-            await axios
-            .post(`${process.env.NEXT_PUBLIC_WEB_BACKEND}/order_detail`, dataOrderDetail)
+            await axios.post(`${process.env.NEXT_PUBLIC_WEB_BACKEND}/order_detail`, dataOrderDetail)
             console.log(dataOrderDetail)
           })
 
-          console.log(orderObjID)
+          dispatch(turnOffLoading())
           Swal.fire({
             icon: 'success',
             title: 'ยืนยันการสั่งซื้อ',

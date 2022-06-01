@@ -17,6 +17,10 @@ import DialogTitle from '@mui/material/DialogTitle'
 import Slide from '@mui/material/Slide'
 import { styled } from '@mui/material/styles'
 
+// ** Icons Imports
+import Menu from 'mdi-material-ui/Menu'
+import Magnify from 'mdi-material-ui/Magnify'
+
 const ImgStyled = styled('img')(({ theme }) => ({
   width: '100%',
   height: '100%',
@@ -62,6 +66,15 @@ const AppBarContent = props => {
     <>
       <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Box className='actions-left' sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>
+          {hidden ? (
+            <IconButton
+              color='inherit'
+              onClick={toggleNavVisibility}
+              sx={{ ml: -2.75, ...(hiddenSm ? {} : { mr: 3.5 }) }}
+            >
+              <Menu />
+            </IconButton>
+          ) : null}
           <Marquee
             style={{ color: purple[500], backgroundColor: purple[100], borderRadius: '15px' }}
             pauseOnHover
@@ -70,6 +83,14 @@ const AppBarContent = props => {
           >
             {Announce}
           </Marquee>
+          {/* <Marquee
+            style={{ color: purple[500], backgroundColor: purple[100], borderRadius: '15px' }}
+            pauseOnHover
+            speed='30'
+            gradientColor={[249, 47, 242]}
+          >
+            {Announce}
+          </Marquee> */}
         </Box>
         <Box className='actions-right' sx={{ display: 'flex', alignItems: 'center' }}>
           {hiddenSm ? null : (

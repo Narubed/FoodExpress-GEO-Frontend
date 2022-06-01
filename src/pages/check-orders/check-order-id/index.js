@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import { useDispatch } from 'react-redux'
+import { openLoading, turnOffLoading } from '../../../store/actions'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
@@ -61,11 +63,11 @@ const ResetButtonStyled = styled(Button)(({ theme }) => ({
 
 const TabAccount = () => {
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const {
     query: { id, total }
   } = router
-  console.log(id)
 
   // ** State
   const [openAlert, setOpenAlert] = useState(true)
@@ -120,10 +122,12 @@ const TabAccount = () => {
         cancelButtonText: 'ยกเลิก'
       }).then(async result => {
         if (result.isConfirmed) {
+          dispatch(openLoading())
           let formData = new FormData()
           formData.append('order_partner_image', file)
           formData.append('order_partner_status', 'รอตรวจสอบ')
           await axios.put(`${process.env.NEXT_PUBLIC_WEB_BACKEND}/order/${order_id}`, formData)
+          dispatch(turnOffLoading())
           Swal.fire({
             icon: 'success',
             title: 'ยืนยันการโอนเงินเรียบร้อยเเล้ว',

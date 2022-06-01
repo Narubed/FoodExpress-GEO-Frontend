@@ -2,7 +2,9 @@
 import { useState, useEffect } from 'react'
 import { Icon } from '@iconify/react'
 import { useSelector, useDispatch } from 'react-redux'
+import { openLoading, turnOffLoading } from '../../store/actions'
 import Link from 'next/link'
+
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
@@ -16,6 +18,8 @@ import Badge from '@mui/material/Badge'
 // ** Third Party Imports
 import { usePopper } from 'react-popper'
 
+import LoadingPage from './vertical/LoadingPage'
+
 const BuyNowButton = () => {
   // ** States
 
@@ -27,6 +31,8 @@ const BuyNowButton = () => {
   const dispatch = useDispatch()
 
   const sampleListData = useSelector(state => state.list)
+  const valueLoading = useSelector(state => state.loading)
+  console.log(valueLoading)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
@@ -52,11 +58,21 @@ const BuyNowButton = () => {
     setOpen(false)
   }
 
+  const onClicksSetLoading = () => {
+    dispatch(openLoading())
+    setTimeout(() => {
+      dispatch(turnOffLoading())
+    }, 5000)
+  }
+
   return (
     <Box
       className='upgrade-to-pro-button mui-fixed'
       sx={{ right: theme => theme.spacing(20), bottom: theme => theme.spacing(180), zIndex: 11, position: 'fixed' }}
     >
+      {/* <Button variant='contained' onClick={() => onClicksSetLoading()}>
+        Loading
+      </Button> */}
       <Link href='/product-app/product-confirm' passHref>
         <Button
           startIcon={
@@ -112,6 +128,7 @@ const BuyNowButton = () => {
           </Paper>
         </Box>
       </Fade>
+      <LoadingPage />
     </Box>
   )
 }

@@ -18,3 +18,18 @@ export const deleteItem = payload => {
     payload
   }
 }
+
+export const openLoading = payload => {
+  return {
+    type: 'OPEN_LOADING',
+    payload
+  }
+}
+
+export const turnOffLoading = payload => {
+  return {
+    type: 'TURNOFF_LOADING',
+    payload
+  }
+}
+
