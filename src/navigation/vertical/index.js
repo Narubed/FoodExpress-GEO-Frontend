@@ -13,6 +13,8 @@ import AlertCircleOutline from 'mdi-material-ui/AlertCircleOutline'
 import GoogleCirclesExtended from 'mdi-material-ui/GoogleCirclesExtended'
 import ShoppingOutline from 'mdi-material-ui/ShoppingOutline'
 import PlaylistEdit from 'mdi-material-ui/PlaylistEdit'
+import CreditCardMarkerOutline from 'mdi-material-ui/CreditCardMarkerOutline'
+import PackageVariant from 'mdi-material-ui/PackageVariant'
 
 const navigation = () => {
   return [
@@ -32,68 +34,88 @@ const navigation = () => {
       path: '/check-orders'
     },
     {
+      sectionTitle: 'รับสินค้าจากไรเดอร์'
+    },
+    {
+      title: 'รับสินค้า',
+      icon: CreditCardMarkerOutline,
+      path: '/take-orders'
+    },
+    {
+      title: 'สต๊อกสินค้า',
+      icon: PackageVariant,
+      path: '/stock-partner'
+    },
+    {
+      title: 'รายงานสินค้า',
+      icon: PackageVariant,
+      path: '/report-stock-partner'
+    },
+
+    {
       sectionTitle: 'สำหรับศูนย์ที่อยู่ใต้สังกัต'
     },
     {
       title: 'ออเดอร์ศูนย์',
       icon: PlaylistEdit,
       path: '/under-check-orders'
-    },
-    {
-      title: 'Account Settings',
-      icon: AccountCogOutline,
-      path: '/account-settings'
-    },
-    {
-      sectionTitle: 'Pages'
-    },
-    {
-      title: 'Login',
-      icon: Login,
-      path: '/pages/login',
-      openInNewTab: true
-    },
-    {
-      title: 'Register',
-      icon: AccountPlusOutline,
-      path: '/pages/register',
-      openInNewTab: true
-    },
-
-    {
-      title: 'Error',
-      icon: AlertCircleOutline,
-      path: '/pages/error',
-      openInNewTab: true
-    },
-    {
-      sectionTitle: 'User Interface'
-    },
-    {
-      title: 'Typography',
-      icon: FormatLetterCase,
-      path: '/typography'
-    },
-    {
-      title: 'Icons',
-      path: '/icons',
-      icon: GoogleCirclesExtended
-    },
-    {
-      title: 'Cards',
-      icon: CreditCardOutline,
-      path: '/cards'
-    },
-    {
-      title: 'Tables',
-      icon: Table,
-      path: '/tables'
-    },
-    {
-      icon: CubeOutline,
-      title: 'Form Layouts',
-      path: '/form-layouts'
     }
+
+    //   {
+    //     title: 'Account Settings',
+    //     icon: AccountCogOutline,
+    //     path: '/account-settings'
+    //   },
+    //   {
+    //     sectionTitle: 'Pages'
+    //   },
+    //   {
+    //     title: 'Login',
+    //     icon: Login,
+    //     path: '/pages/login',
+    //     openInNewTab: true
+    //   },
+    //   {
+    //     title: 'Register',
+    //     icon: AccountPlusOutline,
+    //     path: '/pages/register',
+    //     openInNewTab: true
+    //   },
+
+    //   {
+    //     title: 'Error',
+    //     icon: AlertCircleOutline,
+    //     path: '/pages/error',
+    //     openInNewTab: true
+    //   },
+    //   {
+    //     sectionTitle: 'User Interface'
+    //   },
+    //   {
+    //     title: 'Typography',
+    //     icon: FormatLetterCase,
+    //     path: '/typography'
+    //   },
+    //   {
+    //     title: 'Icons',
+    //     path: '/icons',
+    //     icon: GoogleCirclesExtended
+    //   },
+    //   {
+    //     title: 'Cards',
+    //     icon: CreditCardOutline,
+    //     path: '/cards'
+    //   },
+    //   {
+    //     title: 'Tables',
+    //     icon: Table,
+    //     path: '/tables'
+    //   },
+    //   {
+    //     icon: CubeOutline,
+    //     title: 'Form Layouts',
+    //     path: '/form-layouts'
+    //   }
   ]
 }
 

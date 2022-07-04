@@ -20,6 +20,7 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import dynamic from 'next/dynamic'
 import Container from '@mui/material/Container'
+import CheckPercent from './CheckPercent'
 
 const CardProductConfirm = dynamic(
   () => import('../../../../src/views/product-app/product-confrim/CardProductConfirm'),
@@ -72,6 +73,9 @@ const Icons = () => {
         timer: 1500
       })
     } else {
+      // CheckPercent(datas)
+      console.log(datas)
+
       Swal.fire({
         title: 'ยืนยันการสั่งซื้อ !',
         text: 'คุณต้องการเพิ่มรายการสินค้าหรือไม่ ?',
@@ -111,7 +115,9 @@ const Icons = () => {
               odd_product_price: element.productPrice,
               odd_product_amount: element.amount,
               odd_product_currency: element.currency,
-              odd_product_unitkg: element.unitkg
+              odd_product_unitkg: element.unitkg,
+              odd_percent_nba: (element.percent_NBA * element.amount).toFixed(3),
+              odd_percent_service: (element.percent_service * element.amount).toFixed(3)
             }
             await axios.post(`${process.env.NEXT_PUBLIC_WEB_BACKEND}/order_detail`, dataOrderDetail)
             console.log(dataOrderDetail)

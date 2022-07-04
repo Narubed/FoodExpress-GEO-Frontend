@@ -32,7 +32,6 @@ const BuyNowButton = () => {
 
   const sampleListData = useSelector(state => state.list)
   const valueLoading = useSelector(state => state.loading)
-  console.log(valueLoading)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {

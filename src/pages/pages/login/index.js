@@ -60,13 +60,6 @@ const LinkStyled = styled('a')(({ theme }) => ({
   color: theme.palette.primary.main
 }))
 
-const FormControlLabel = styled(MuiFormControlLabel)(({ theme }) => ({
-  '& .MuiFormControlLabel-label': {
-    fontSize: '0.875rem',
-    color: theme.palette.text.secondary
-  }
-}))
-
 const LoginPage = () => {
   const dispatch = useDispatch()
 
@@ -78,7 +71,6 @@ const LoginPage = () => {
   })
 
   // ** Hook
-  const theme = useTheme()
   const router = useRouter()
 
   const handleChange = prop => event => {

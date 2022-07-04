@@ -85,10 +85,6 @@ export default function CheckOrderMoreMenu(props) {
           order_partner_status: 'ผู้ใช้ยกเลิก'
         }
         await axios.put(`${process.env.NEXT_PUBLIC_WEB_BACKEND}/order/${id}`, putData)
-
-        // orderDetails.data.data.map(async value => {
-        //   await axios.delete(`${process.env.NEXT_PUBLIC_WEB_BACKEND}/order_detail/${value._id}`)
-        // })
         Swal.fire({
           icon: 'success',
           title: 'ยืนยันการยกเลิกออเดอร์เเล้ว',

@@ -83,8 +83,6 @@ const ImageMarked = styled('span')(({ theme }) => ({
 const ImgStyled = styled('img')(({ theme }) => ({
   width: '100%',
   height: '100%',
-
-  // marginRight: theme.spacing(6.25),
   borderRadius: theme.shape.borderRadius
 }))
 

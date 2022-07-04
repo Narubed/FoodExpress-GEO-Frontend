@@ -11,16 +11,16 @@ const FooterContent = () => {
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
       <Typography sx={{ mr: 2 }}>
-        {`© ${new Date().getFullYear()}, Made with `}
+        {`© ติดต่อสอบถาม `}
         <Box component='span' sx={{ color: 'error.main' }}>
           ❤️
         </Box>
-        {` by `}
-        <Link target='_blank' href='https://themeselection.com/'>
-          ThemeSelection
+        {` ได้ที่ `}
+        <Link target='_blank' href='https://nbadigitalservice.com/'>
+          NBA Digital Service Center.
         </Link>
       </Typography>
-      {hidden ? null : (
+      {/* {hidden ? null : (
         <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', '& :not(:last-child)': { mr: 4 } }}>
           <Link
             target='_blank'
@@ -44,7 +44,7 @@ const FooterContent = () => {
             Support
           </Link>
         </Box>
-      )}
+      )} */}
     </Box>
   )
 }

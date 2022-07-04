@@ -111,6 +111,12 @@ const TabAccount = () => {
         timer: 1500
       })
     } else {
+      const messages = {
+        token: '2VvNMnpRFjgeYY49HwvGEkt9SNG6CSOPUwU3ZoVqm6Z',
+        message: `จาก ${sessionStorage.getItem('name')} ${sessionStorage.getItem('level')} 
+        ยอดโอนรวม: ${total}
+        ตรวจสอบได้ที่ : https://foodexpress.nbadigitalservice.com/ `
+      }
       Swal.fire({
         title: 'ยืนยันข้อมูล !',
         text: 'คุณต้องการยืนยันการทำรายการหรือไม่ ?',
@@ -127,6 +133,8 @@ const TabAccount = () => {
           formData.append('order_partner_image', file)
           formData.append('order_partner_status', 'รอตรวจสอบ')
           await axios.put(`${process.env.NEXT_PUBLIC_WEB_BACKEND}/order/${order_id}`, formData)
+          await axios.post(`${process.env.NEXT_PUBLIC_WEB_FOODEXPRESS}/postLineNotify`, messages)
+
           dispatch(turnOffLoading())
           Swal.fire({
             icon: 'success',

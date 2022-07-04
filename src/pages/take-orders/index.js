@@ -46,26 +46,20 @@ const UnderCheckOrderListHead = dynamic(
   { loading: () => <p>...</p> }
 )
 
-const UnderCheckOrderListToolbar = dynamic(
-  () => import('../../views/under-check-orders/companents/UnderCheckOrderListToolbar'),
-  { loading: () => <p>...</p> }
-)
-
-const UnderCheckOrderMoreMenu = dynamic(
-  () => import('../../views/under-check-orders/companents/UnderCheckOrderMoreMenu'),
-  { loading: () => <p>...</p> }
-)
-
+const InputTakeOrderId = dynamic(() => import('../../views/take-orders/InputTakeOrderId'), {
+  loading: () => <p>...</p>
+})
 const Scrollbar = dynamic(() => import('../../utils/Scrollbar'), { loading: () => <p>...</p> })
 const Label = dynamic(() => import('src/utils/Label'), { loading: () => <p>...</p> })
 const SearchNotFound = dynamic(() => import('../../utils/SearchNotFound'), { loading: () => <p>...</p> })
 
 // ----------------------------------------------------------------------
 const TABLE_HEAD = [
-  { id: 'newLevel', label: 'ระดับศูนย์', alignRight: false },
-  { id: 'order_status', label: 'สถานะ', alignRight: false },
-  { id: 'order_product_total', label: 'ผลรวมของออเดอร์', alignRight: false },
-  { id: 'order_product_date', label: 'วัน-เดือน-ปี', alignRight: false },
+  { id: 'order_rider_product_name', label: 'ชื่อสินค้า', alignRight: false },
+  { id: 'order_rider_amount', label: 'จำนวน', alignRight: false },
+  { id: 'order_rider_status', label: 'สถานะ', alignRight: false },
+  { id: 'rider_first_name', label: 'ชื่อไรเดอร์', alignRight: false },
+  { id: 'rider_tel', label: 'เบอร์ไรเดอร์', alignRight: false },
   { id: '' }
 ]
 
@@ -128,56 +122,14 @@ function AdminCheckOrderApp() {
   const [valueDate, setValueDate] = useState([null, null])
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    const getLevel = sessionStorage.getItem('level')
-    const getSubLevel = sessionStorage.getItem('sublevel')
-    let provice = []
-    if (getLevel === 'ระดับเขต') {
-      const getZone = await axios.post(`${process.env.NEXT_PUBLIC_API_GEO}/join_nba_zone_province`, {
-        tokenKey: '*NBADigital9111*'
-      })
-      const filterProvince = getZone.data.data.filter(item => item.nba_zone === parseInt(getSubLevel, 10))
-      provice = filterProvince.map(item => item.province_name)
-    } else if (getLevel === 'ระดับภาค') {
-      const getGEO = await axios.post(`${process.env.NEXT_PUBLIC_API_GEO}/join_geo_province`, {
-        tokenKey: '*NBADigital9111*'
-      })
-      const filterProvince = getGEO.data.data.filter(item => item.nba_geo_id === parseInt(getSubLevel, 10))
-      provice = filterProvince.map(item => item.province_name)
-    }
+    const getOrdder = await axios.get(`${process.env.NEXT_PUBLIC_WEB_FOODEXPRESS}/getAllOrderExpressJoinRider`)
 
-    const getOrdder = await axios.get(`${process.env.NEXT_PUBLIC_WEB_FOODEXPRESS}/getJoinOrderAndMember`)
-    const reverseData = getOrdder.data.data.reverse()
-
-    const filterStatus = reverseData.filter(
-      item => item.order_status === 'รอจัดส่ง' || item.order_status === 'จัดส่งสำเร็จ'
+    const filter_id = getOrdder.data.data.filter(
+      item => item.order_rider_consignee_id === sessionStorage.getItem('_id')
     )
-    const valueProvincePartner = []
-    provice.forEach(element => {
-      const idf = filterStatus.filter(item => item.province === element)
-      if (idf.length !== 0) {
-        idf.map(value => valueProvincePartner.push(value))
-      }
-    })
-    const newTabel = []
-    valueProvincePartner.forEach(element => {
-      if (element.level === 'subdistrict') {
-        newTabel.push({
-          ...element,
-          newLevel: `ระดับตำบล ${element.subdistrict} อ.${element.district} จ.${element.province}`
-        })
-      } else if (element.level === 'district') {
-        newTabel.push({
-          ...element,
-          newLevel: `ระดับอำเภอ ${element.district} จ.${element.province}`
-        })
-      } else if (element.level === 'province') {
-        newTabel.push({
-          ...element,
-          newLevel: `ระดับจังหวัด ${element.province}`
-        })
-      }
-    })
-    setOrderlist(newTabel)
+    const filterStatus = filter_id.filter(item => item.order_rider_status === 'ไรเดอร์รับมอบหมายงานแล้ว')
+    console.log(filterStatus)
+    setOrderlist(filterStatus)
   }, [])
 
   const handleRequestSort = (event, property) => {
@@ -197,17 +149,6 @@ function AdminCheckOrderApp() {
     setSelected_id([])
   }
 
-  const onChangeStatus = e => {
-    const filterStatus = Orderlist.filter(value => value.order_status === e)
-    if (filterStatus.length !== 0) {
-      setOrderlistFilter(filterStatus)
-    }
-  }
-
-  const onResetFilter = () => {
-    setOrderlistFilter(null)
-  }
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage)
   }
@@ -217,34 +158,14 @@ function AdminCheckOrderApp() {
     setPage(0)
   }
 
-  const handleFilterByName = event => {
-    setFilterName(event.target.value)
-  }
-
-  const newOrderlist =
-    OrderlistFilter !== null && valueDate[0] !== null && valueDate[1] !== null
-      ? OrderlistFilter.filter(
-          f =>
-            dayjs(f.order_product_date).format() >= dayjs(valueDate[0]).format() &&
-            dayjs(f.order_product_date).format() <= dayjs(valueDate[1]).format()
-        )
-      : OrderlistFilter === null && valueDate[0] !== null && valueDate[1] !== null
-      ? Orderlist.filter(
-          f =>
-            dayjs(f.order_product_date).format() >= dayjs(valueDate[0]).format() &&
-            dayjs(f.order_product_date).format() <= dayjs(valueDate[1]).format()
-        )
-      : OrderlistFilter !== null && valueDate[0] === null && valueDate[1] === null
-      ? OrderlistFilter
-      : Orderlist
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - newOrderlist.length) : 0
-  const filteredOrder = applySortFilter(newOrderlist, getComparator(order, orderBy), filterName)
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - Orderlist.length) : 0
+  const filteredOrder = applySortFilter(Orderlist, getComparator(order, orderBy), filterName)
 
   const isUserNotFound = filteredOrder.length === 0
 
   const statusObj = {
     รอจัดส่ง: { color: 'info' },
-    รอชำระเงิน: { color: 'warning' },
+    ไรเดอร์รับมอบหมายงานแล้ว: { color: 'warning' },
     รอตรวจสอบ: { color: 'primary' },
     จัดส่งสำเร็จ: { color: 'success' },
     ผู้ใช้ยกเลิก: { color: 'error' },
@@ -258,39 +179,11 @@ function AdminCheckOrderApp() {
           <Typography variant='h4' gutterBottom>
             <div>เช็คออเดอร์</div>
           </Typography>
+          <InputTakeOrderId Orderlist={Orderlist} />
         </Stack>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <Stack spacing={3}>
-            <MobileDateRangePicker
-              startText='start'
-              value={valueDate}
-              onChange={newValue => {
-                setValueDate(newValue)
-              }}
-              renderInput={(startProps, endProps) => (
-                <>
-                  <TextField size='small' {...startProps} />
-                  <Box sx={{ mx: 2 }}> to </Box>
-                  <TextField size='small' {...endProps} />
-                </>
-              )}
-            />
-          </Stack>
-        </LocalizationProvider>
         <br />
 
         <Card>
-          <UnderCheckOrderListToolbar
-            numSelected={selected.length}
-            filterName={filterName}
-            onFilterName={handleFilterByName}
-            selected={selected}
-            onChangeStatus={onChangeStatus}
-            onResetFilter={onResetFilter}
-            // eslint-disable-next-line camelcase
-            selected_id={selected_id}
-          />
-
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
@@ -306,20 +199,19 @@ function AdminCheckOrderApp() {
                 <TableBody>
                   {filteredOrder.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
                     const {
-                      order_id,
-                      order_member_id,
-                      order_status,
-                      order_product_total,
-                      order_product_date,
-                      level,
-                      newLevel
+                      id_order_rider_id,
+                      order_rider_product_name,
+                      order_rider_status,
+                      order_rider_amount,
+                      rider_first_name,
+                      rider_tel
                     } = row
-                    const isItemSelected = selected.indexOf(order_id) !== -1
+                    const isItemSelected = selected.indexOf(id_order_rider_id) !== -1
 
                     return (
                       <TableRow
                         hover
-                        key={order_id}
+                        key={id_order_rider_id}
                         tabIndex={-1}
                         role='checkbox'
                         selected={isItemSelected}
@@ -329,16 +221,15 @@ function AdminCheckOrderApp() {
                         <TableCell component='th' scope='row' padding='none'>
                           <Stack direction='row' alignItems='center' spacing={2}>
                             <Typography variant='subtitle2' noWrap>
-                              {level === 'subdistrict' ? <Label color='primary'>{newLevel}</Label> : null}
-                              {level === 'district' ? <Label color='warning'>{newLevel}</Label> : null}
-                              {level === 'province' ? <Label color='error'>{newLevel}</Label> : null}
+                              <Label color='primary'>{order_rider_product_name}</Label>
                             </Typography>
                           </Stack>
                         </TableCell>
+                        <TableCell align='center'>{order_rider_amount.toLocaleString()}</TableCell>
                         <TableCell align='center'>
                           <Chip
-                            label={row.order_status}
-                            color={statusObj[row.order_status].color}
+                            label={row.order_rider_status}
+                            color={statusObj[row.order_rider_status].color}
                             sx={{
                               height: 24,
                               fontSize: '0.75rem',
@@ -348,23 +239,14 @@ function AdminCheckOrderApp() {
                           />
                         </TableCell>
 
-                        <TableCell align='center'>{order_product_total.toLocaleString()}</TableCell>
-                        <TableCell align='right'>
+                        <TableCell align='center'>{rider_first_name.toLocaleString()}</TableCell>
+                        <TableCell align='center'>{rider_tel.toLocaleString()}</TableCell>
+                        {/* <TableCell align='center'>{order_product_total.toLocaleString()}</TableCell> */}
+                        {/* <TableCell align='right'>
                           {order_product_date
                             ? dayjs(order_product_date).add(543, 'year').locale('th').format('DD MMMM YYYY')
                             : null}
-                        </TableCell>
-
-                        <TableCell align='right'>
-                          <UnderCheckOrderMoreMenu
-                            id={order_id}
-                            Orderlist={Orderlist}
-                            row={row}
-                            order_product_total={order_product_total}
-                            order_status={order_status}
-                            order_member_id={order_member_id}
-                          />
-                        </TableCell>
+                        </TableCell> */}
                       </TableRow>
                     )
                   })}
@@ -390,7 +272,7 @@ function AdminCheckOrderApp() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component='div'
-            count={newOrderlist.length}
+            count={Orderlist.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
