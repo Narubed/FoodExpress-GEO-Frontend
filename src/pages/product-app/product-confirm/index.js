@@ -20,7 +20,6 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import dynamic from 'next/dynamic'
 import Container from '@mui/material/Container'
-import CheckPercent from './CheckPercent'
 
 const CardProductConfirm = dynamic(
   () => import('../../../../src/views/product-app/product-confrim/CardProductConfirm'),
@@ -73,7 +72,6 @@ const Icons = () => {
         timer: 1500
       })
     } else {
-      // CheckPercent(datas)
       console.log(datas)
 
       Swal.fire({
